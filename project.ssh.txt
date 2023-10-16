@@ -1,0 +1,44 @@
+#!/bin/bash   
+         
+#TERENCE KAMOGELO MOABI  : 221716971
+#NHLANHLA  MAKOFANE      : 221920234
+
+dir="labs"
+link="html"
+page="index.html"
+echo "NGINX CONFIGURING SCRIPT"
+echo "#########################"
+echo "script starting ....";
+sleep 1
+if (systemctl is-active nginx)
+then    
+        echo"service running, continuing with conguration ..."
+        apt-get update
+        echo"checking updates "
+        sleep 1
+        apt-get -y install nginx
+        echo"installing nginx "
+        sleep 1
+        systemctl start nginx
+        echo"starting the  nginx "
+        
+        sleep 1
+        echo"createing directory $dir "
+        sleep 1
+        mkdir /var/www/html/$dir
+        echo"changing ownership of labs to the current user";
+        sleep 1
+        chown $terence:root /var/www/html/labs
+        echo "creating symbolic link";
+        sleep 1
+        ln -s /var/www/html/$dir $link
+        echo"creating test page $page ";
+        sleep 1
+	cd ../link
+        echo"<htm1><h1>STUDENT INFORMATION PAGE</h1><body>Student Intial : TKM & NVM </body><body>Student Intial : TKM & NVM </body></html> " > $page
+	cat $page       
+        
+else
+        echo"nginx service not running"
+        echo"exiting script"
+        exit 1
